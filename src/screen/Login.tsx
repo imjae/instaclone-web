@@ -1,8 +1,8 @@
-const Login = ({ setIsLoggedIn }: { setIsLoggedIn: Function }) => {
+const Login = () => {
   return (
     <div>
       <h1>Login</h1>
-      <button onClick={() => setIsLoggedIn(true)}>Log in now!</button>
+      <button >Log in now!</button>
     </div>
   );
 };

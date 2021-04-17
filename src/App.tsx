@@ -5,16 +5,16 @@ import Login from "./screen/Login";
 import NotFound from "./screen/NotFound";
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const isLoggedIn = false;
   return (
     <div>
       <Router>
         <Switch>
           <Route path="/" exact>
             {isLoggedIn ? (
-              <Home setIsLoggedIn={setIsLoggedIn} />
+              <Home />
             ) : (
-              <Login setIsLoggedIn={setIsLoggedIn} />
+              <Login />
             )}
           </Route>
           <Route>
