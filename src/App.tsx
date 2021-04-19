@@ -6,22 +6,14 @@ import { ThemeProvider } from "styled-components";
 import Home from "./screen/Home";
 import Login from "./screen/Login";
 import NotFound from "./screen/NotFound";
-
-const lightTheme = {
-  fontColor: "#2c2c2c",
-  bgColor: "lightGray",
-};
-
-const darkTheme = {
-  fontColor: "lightGray",
-  bgColor: "#2c2c2c",
-};
+import { darkTheme, GlobalStyles, lightTheme } from "./styles";
 
 function App() {
   const isLoggedIn = useReactiveVar(isLoggedInVar);
   const darkMode = useReactiveVar(darkModeVar);
   return (
     <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
+      <GlobalStyles />
       <Router>
         <Switch>
           <Route path="/" exact>
