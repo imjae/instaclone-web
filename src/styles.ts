@@ -6,9 +6,7 @@ export const lightTheme: DefaultTheme = {
   borderColor: "rgb(219, 219, 219)",
 };
 
-export const darkTheme: any = {
-  
-};
+export const darkTheme: any = {};
 
 export const GlobalStyles = createGlobalStyle`
     ${reset}
@@ -22,6 +20,7 @@ export const GlobalStyles = createGlobalStyle`
         background-color: #FAFAFA;
         font-size:14px;
         font-family:'Open Sans', sans-serif;
+        color: rgb(38, 38, 38);
     }
     a {
       text-decoration: none;
