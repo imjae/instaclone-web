@@ -19,6 +19,9 @@ function App() {
           <Route path="/" exact>
             {isLoggedIn ? <Home /> : <Login />}
           </Route>
+          <Route path="/sign-up" exact>
+            signup
+          </Route>
           <Route>
             <NotFound />
           </Route>
