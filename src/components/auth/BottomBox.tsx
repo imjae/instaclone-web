@@ -12,7 +12,7 @@ const StyledBottomBox = styled(BaseBox)`
   }
 `;
 
-const BottomBox = ({ cta, link, linkText }: any) => {
+const BottomBox = ({ cta, link, linkText }: {cta: string, link: string, linkText: string}) => {
   return (
     <StyledBottomBox>
       <span>{cta}</span>
