@@ -12,7 +12,13 @@ const StyledBottomBox = styled(BaseBox)`
   }
 `;
 
-const BottomBox = ({ cta, link, linkText }: {cta: string, link: string, linkText: string}) => {
+interface bottomBoxType {
+	cta: string;
+	link: string;
+	linkText: string;
+}
+
+const BottomBox = ({ cta, link, linkText }: bottomBoxType): any => {
   return (
     <StyledBottomBox>
       <span>{cta}</span>
