@@ -8,6 +8,7 @@ import Login from "./screen/Login";
 import NotFound from "./screen/NotFound";
 import { darkTheme, GlobalStyles, lightTheme } from "./styles";
 import routes from "./routes";
+import SignUp from "./screen/SignUp";
 
 function App() {
   const isLoggedIn = useReactiveVar(isLoggedInVar);
@@ -21,7 +22,7 @@ function App() {
             {isLoggedIn ? <Home /> : <Login />}
           </Route>
           <Route path={routes.signUp} exact>
-            signup
+            <SignUp />
           </Route>
           <Route>
             <NotFound />

@@ -30,19 +30,19 @@ const Login = () => {
           <FontAwesomeIcon icon={faInstagram} size="3x" />
         </div>
         <form>
-          <Input type="text" placeholder="Username" />
-          <Input type="password" placeholder="Password" />
+          <Input type="text" placeholder="휴대폰 번호 또는 이메일 주소" />
+          <Input type="password" placeholder="비밀번호" />
           <Button type="submit" value="Log in" />
         </form>
         <Separator />
         <FacebookLogin>
           <FontAwesomeIcon icon={faFacebookSquare} />
-          <span>Log in with Facebook</span>
+          <span>Facebook으로 로그인</span>
         </FacebookLogin>
       </FormBox>
       <BottomBox
-        cta="Don't have an account?"
-        linkText="Sign up"
+        cta="계정이 없으신가요?"
+        linkText="가입하기"
         link={routes.signUp}
       />
     </AuthLayout>
