@@ -9,6 +9,7 @@ const Button = styled.input`
   text-align: center;
   padding: 8px 0px;
   font-weight: 600;
+  opacity: ${(props) => (props.disabled ? "0.4" : "1")};
 `;
 
 // propt에 뭔가 추가가 되지않을 경우 그냥 styled components를 그냥 export하는 방식

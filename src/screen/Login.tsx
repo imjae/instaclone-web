@@ -23,14 +23,16 @@ const FacebookLogin = styled.div`
 `;
 
 const Login = () => {
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, errors, formState } = useForm({
+    mode: "onChange",
+  });
   const onSubmitValid = (data: any) => {
-    console.log(data);
+    //console.log(data);
   };
   const onSubmitInvalid = (data: any) => {
-    console.log(data, "invalid");
+    //console.log(data, "invalid");
   };
-
+  console.log(formState);
   return (
     <AuthLayout>
       <PageTitle title="Login" />
@@ -41,8 +43,11 @@ const Login = () => {
         <form onSubmit={handleSubmit(onSubmitValid, onSubmitInvalid)}>
           <Input
             ref={register({
-              required: "Username is required.",
-              minLength: 5,
+              required: "사용자 이름을 작성해 주세요.",
+              minLength: {
+                value: 5,
+                message: "사용자 이름을 5글자 이상으로 작성해 주세요.",
+              },
               // validate: (currentValue: any) => currentValue.includes("potato")
             })}
             name="userName"
@@ -51,13 +56,13 @@ const Login = () => {
           />
           <Input
             ref={register({
-              required: "Password is required.",
+              required: "비밀번호를 작성해 주세요.",
             })}
             name="password"
             type="password"
             placeholder="비밀번호"
           />
-          <Button type="submit" value="Log in" />
+          <Button type="submit" value="Log in" disabled={!formState.isValid}/>
         </form>
         <Separator />
         <FacebookLogin>
