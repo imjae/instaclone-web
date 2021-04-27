@@ -1,7 +1,4 @@
 import {
-  faFacebook,
-  faFacebookF,
-  faFacebookSquare,
   faInstagram,
 } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -14,6 +11,7 @@ import Input from "../components/auth/Input";
 import { FatLink } from "../components/shared";
 import Separator from "../components/auth/Separator";
 import routes from "../routes";
+import PageTitle from "../components/PageTitle";
 
 const HeaderContainer = styled.div`
   display: flex;
@@ -37,6 +35,7 @@ const SubtitleSmall = styled.div`
 const SignUp = () => {
   return (
     <AuthLayout>
+      <PageTitle title="Sign up"/>
       <FormBox>
         <HeaderContainer>
           <FontAwesomeIcon icon={faInstagram} size="3x" />
