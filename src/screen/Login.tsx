@@ -9,6 +9,7 @@ import AuthLayout from "../components/auth/AuthLayout";
 import BottomBox from "../components/auth/BottomBox";
 import Button from "../components/auth/Button";
 import FormBox from "../components/auth/FormBox";
+import FormError from "../components/auth/FormError";
 import Input from "../components/auth/Input";
 import Separator from "../components/auth/Separator";
 import PageTitle from "../components/PageTitle";
@@ -24,7 +25,7 @@ const FacebookLogin = styled.div`
 
 const Login = () => {
   const { register, handleSubmit, errors, formState } = useForm({
-    mode: "onChange",
+    mode: "onBlur",
   });
   const onSubmitValid = (data: any) => {
     //console.log(data);
@@ -32,7 +33,7 @@ const Login = () => {
   const onSubmitInvalid = (data: any) => {
     //console.log(data, "invalid");
   };
-  console.log(formState);
+  // console.log(formState);
   return (
     <AuthLayout>
       <PageTitle title="Login" />
@@ -54,6 +55,7 @@ const Login = () => {
             type="text"
             placeholder="휴대폰 번호 또는 이메일 주소"
           />
+          <FormError message={errors?.userName?.message} />
           <Input
             ref={register({
               required: "비밀번호를 작성해 주세요.",
@@ -62,7 +64,8 @@ const Login = () => {
             type="password"
             placeholder="비밀번호"
           />
-          <Button type="submit" value="Log in" disabled={!formState.isValid}/>
+          <FormError message={errors?.password?.message} />
+          <Button type="submit" value="Log in" disabled={!formState.isValid} />
         </form>
         <Separator />
         <FacebookLogin>
