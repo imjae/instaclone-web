@@ -24,33 +24,14 @@ const FacebookLogin = styled.div`
 `;
 
 const Login = () => {
-  const [userName, setUserName] = useState("");
-  const [userNameError, setUserNameError] = useState("");
-
-  const onUserNameChange = (event: any) => {
-    setUserName(event.target.value);
-  };
-  const handleSubmit = (event: any) => {
-    event.preventDefault();
-    setUserNameError("");
-    if (userName === "") {
-      setUserNameError("Not empty pls.");
-    }
-    if (userName.length < 10) {
-      setUserNameError("Too short");
-    }
-  };
   return (
     <AuthLayout>
       <FormBox>
         <div>
           <FontAwesomeIcon icon={faInstagram} size="3x" />
         </div>
-        <form onSubmit={handleSubmit}>
-          {userNameError}
+        <form>
           <Input
-            onChange={onUserNameChange}
-            value={userName}
             type="text"
             placeholder="휴대폰 번호 또는 이메일 주소"
           />
@@ -58,7 +39,6 @@ const Login = () => {
           <Button
             type="submit"
             value="Log in"
-            disabled={userName === "" && userName.length < 10}
           />
         </form>
         <Separator />
