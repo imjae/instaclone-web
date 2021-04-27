@@ -9,6 +9,12 @@ const Input = styled.input`
   margin-top: 5px;
   box-sizing: border-box;
   font-size: 12px;
+  &::placeholder {
+    font-size: 12px;
+  }
+  &:focus {
+    border-color: rgb(38, 38, 38);
+  }
 `;
 
 export default Input;
