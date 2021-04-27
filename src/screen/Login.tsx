@@ -3,6 +3,7 @@ import {
   faInstagram,
 } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import AuthLayout from "../components/auth/AuthLayout";
 import BottomBox from "../components/auth/BottomBox";
@@ -22,23 +23,41 @@ const FacebookLogin = styled.div`
 `;
 
 const Login = () => {
+  const { register, handleSubmit } = useForm();
+  const onSubmitValid = (data: any) => {
+    console.log(data);
+  };
+  const onSubmitInvalid = (data: any) => {
+    console.log(data, "invalid");
+  };
+
   return (
     <AuthLayout>
-      <PageTitle title="Login"/>
+      <PageTitle title="Login" />
       <FormBox>
         <div>
           <FontAwesomeIcon icon={faInstagram} size="3x" />
         </div>
-        <form>
+        <form onSubmit={handleSubmit(onSubmitValid, onSubmitInvalid)}>
           <Input
+            ref={register({
+              required: "Username is required.",
+              minLength: 5,
+              // validate: (currentValue: any) => currentValue.includes("potato")
+            })}
+            name="userName"
             type="text"
             placeholder="휴대폰 번호 또는 이메일 주소"
           />
-          <Input type="password" placeholder="비밀번호" />
-          <Button
-            type="submit"
-            value="Log in"
+          <Input
+            ref={register({
+              required: "Password is required.",
+            })}
+            name="password"
+            type="password"
+            placeholder="비밀번호"
           />
+          <Button type="submit" value="Log in" />
         </form>
         <Separator />
         <FacebookLogin>
