@@ -54,6 +54,7 @@ const Login = () => {
             name="userName"
             type="text"
             placeholder="휴대폰 번호 또는 이메일 주소"
+            hasError={Boolean(errors?.userName?.message)}
           />
           <FormError message={errors?.userName?.message} />
           <Input
@@ -63,7 +64,9 @@ const Login = () => {
             name="password"
             type="password"
             placeholder="비밀번호"
+            hasError={Boolean(errors?.password?.message)}
           />
+          
           <FormError message={errors?.password?.message} />
           <Button type="submit" value="Log in" disabled={!formState.isValid} />
         </form>
