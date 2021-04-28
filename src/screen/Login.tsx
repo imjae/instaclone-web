@@ -25,7 +25,7 @@ const FacebookLogin = styled.div`
 
 const Login = () => {
   const { register, handleSubmit, errors, formState } = useForm({
-    mode: "onBlur",
+    mode: "onChange",
   });
   const onSubmitValid = (data: any) => {
     //console.log(data);
@@ -66,7 +66,7 @@ const Login = () => {
             placeholder="비밀번호"
             hasError={Boolean(errors?.password?.message)}
           />
-          
+
           <FormError message={errors?.password?.message} />
           <Button type="submit" value="Log in" disabled={!formState.isValid} />
         </form>
