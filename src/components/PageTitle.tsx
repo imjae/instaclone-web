@@ -1,7 +1,11 @@
 import { Helmet } from "react-helmet-async";
 
 const PageTitle = ({ title }: { title: string }): any => {
-  return <Helmet> {title} | Instaclone </Helmet>;
+  return (
+    <Helmet>
+      <title>{title} | Instaclone </title>
+    </Helmet>
+  );
 };
 
 // PageTitle.protoTypes = {
