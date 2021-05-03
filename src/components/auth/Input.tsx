@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 interface inputProps {
   hasError?: boolean;
+  onChange?: any;
 }
 
 const Input = styled.input<inputProps>`

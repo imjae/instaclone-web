@@ -43,6 +43,7 @@ const Login = () => {
     formState,
     getValues,
     setError,
+    clearErrors,
   } = useForm({
     mode: "onChange",
   });
@@ -60,6 +61,10 @@ const Login = () => {
       }
     },
   });
+
+  const clearLoginError = () => {
+    clearErrors("result");
+  };
 
   const onSubmitValid = (data: any) => {
     //console.log(data);
@@ -79,8 +84,6 @@ const Login = () => {
     //console.log(data, "invalid");
   };
   // console.log(formState);
-
-  
 
   return (
     <AuthLayout>
@@ -103,6 +106,7 @@ const Login = () => {
             type="text"
             placeholder="휴대폰 번호 또는 이메일 주소"
             hasError={Boolean(errors?.userName?.message)}
+            onChange={clearLoginError}
           />
           <FormError message={errors?.userName?.message} />
           <Input
@@ -113,6 +117,7 @@ const Login = () => {
             type="password"
             placeholder="비밀번호"
             hasError={Boolean(errors?.password?.message)}
+            onChange={clearLoginError}
           />
 
           <FormError message={errors?.password?.message} />
