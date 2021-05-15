@@ -14,6 +14,7 @@ import { useForm } from "react-hook-form";
 import gql from "graphql-tag";
 import { useMutation } from "@apollo/client";
 import FormError from "../components/auth/FormError";
+import { useHistory } from "react-router";
 
 const HeaderContainer = styled.div`
   display: flex;
@@ -56,7 +57,21 @@ const CREATE_ACCOUNT_MUTATION = gql`
 `;
 
 const SignUp = () => {
-  const [createAccount, { loading }] = useMutation(CREATE_ACCOUNT_MUTATION);
+  const history = useHistory();
+  const onCompleted = (data: any) => {
+    const {
+      createAccount: { ok, error },
+    } = data;
+    if (!ok) {
+      return;
+    }
+
+    history.push(routes.home);
+  };
+
+  const [createAccount, { loading }] = useMutation(CREATE_ACCOUNT_MUTATION, {
+    onCompleted,
+  });
   const { register, handleSubmit, errors, formState } = useForm({
     mode: "onChange",
   });
