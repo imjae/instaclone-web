@@ -6,6 +6,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import gql from "graphql-tag";
 import { useForm } from "react-hook-form";
+import { useLocation } from "react-router-dom";
 import styled from "styled-components";
 import { logUserIn } from "../apollo";
 import AuthLayout from "../components/auth/AuthLayout";
@@ -18,12 +19,23 @@ import Separator from "../components/auth/Separator";
 import PageTitle from "../components/PageTitle";
 import routes from "../routes";
 
+interface LocationState {
+  message: any;
+  userName: any;
+  password: any;
+  result: any;
+}
+
 const FacebookLogin = styled.div`
   color: #385285;
   span {
     margin-left: 10px;
     font-weight: 600;
   }
+`;
+
+const Notification = styled.div`
+  color: #2ecc71;
 `;
 
 const LOGIN_MUTATION = gql`
@@ -37,6 +49,8 @@ const LOGIN_MUTATION = gql`
 `;
 
 const Login = () => {
+  // HashRouter의 경우 useLocation으로 state 이동이 안됨. browserRouter로 변경해야함.
+  const location: any = useLocation();
   const {
     register,
     handleSubmit,
@@ -45,8 +59,12 @@ const Login = () => {
     getValues,
     setError,
     clearErrors,
-  } = useForm({
+  } = useForm<LocationState>({
     mode: "onChange",
+    defaultValues: {
+      userName: location?.state?.userName || "",
+      password: location?.state?.password || "",
+    },
   });
 
   const [login, { loading }] = useMutation(LOGIN_MUTATION, {
@@ -96,6 +114,7 @@ const Login = () => {
         <div>
           <FontAwesomeIcon icon={faInstagram} size="3x" />
         </div>
+        <Notification> {location?.state?.message} </Notification>
         <form onSubmit={handleSubmit(onSubmitValid, onSubmitInvalid)}>
           <Input
             ref={register({
