@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const SFormError = styled.span`
+const StyledFormError = styled.span`
   color: tomato;
   font-weight: 600;
   font-size: 12px;
@@ -8,7 +8,7 @@ const SFormError = styled.span`
 `;
 
 const FormError = ({ message }: { message: string }) => {
-  return message === "" || !message ? null : <SFormError>{message}</SFormError>;
+  return message === "" || !message ? null : <StyledFormError>{message}</StyledFormError>;
 };
 
 export default FormError;
