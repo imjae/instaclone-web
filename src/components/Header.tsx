@@ -4,7 +4,7 @@ import { faCompass, faHome, faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { isLoggedInVar } from "../apollo";
+import { isLoggedInVar, logUserOut } from "../apollo";
 import useUser from "../hooks/useUser";
 // import useUser from "../hooks/useUser";
 import routes from "../routes";
@@ -39,7 +39,7 @@ const Button = styled.span`
   border-radius: 4px;
   padding: 4px 15px;
   color: white;
-  font-weight: 600;
+  font-weight: 500;
 `;
 
 const IconsContainer = styled.div`
@@ -57,6 +57,7 @@ const Header = () => {
         <Column>
           <FontAwesomeIcon icon={faInstagram} size="2x" />
         </Column>
+        <Button onClick={() => logUserOut()}>Log out!</Button>
         <Column>
           {isLoggedIn ? (
             <IconsContainer>

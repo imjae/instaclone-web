@@ -1,20 +1,27 @@
 import styled from "styled-components";
 
-const StyledAvatar = styled.div`
-  width: 20px;
-  height: 20px;
-  border-radius: 15px;
+interface StyledAvatarProps {
+  lg: Boolean;
+}
+
+const StyledAvatar = styled.div<StyledAvatarProps>`
+  width: ${(props) => (props.lg ? "30px" : "25px")};
+  height: ${(props) => (props.lg ? "30px" : "25px")};
+  border-radius: 50%;
   background-color: #2c2c2c;
   overflow: hidden;
 `;
 
 const Img = styled.img`
   max-width: 100%;
-  align-items: center;
 `;
 
-const Avatar = ({ url = "" }) => {
-  return <StyledAvatar>{url !== "" ? <Img src={url} /> : null}</StyledAvatar>;
+const Avatar = ({ url = "", lg = false }) => {
+  return (
+    <StyledAvatar lg={lg}>
+      {url !== "" ? <Img src={url} /> : null}
+    </StyledAvatar>
+  );
 };
 
 export default Avatar;

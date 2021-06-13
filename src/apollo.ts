@@ -38,6 +38,7 @@ export const disableDarkMode = () => {
 };
 
 const httpLink = createUploadLink({
+  // uri: "http://192.168.219.101:4000/graphql",
   uri: "http://localhost:4000/graphql",
 });
 
