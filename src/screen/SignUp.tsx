@@ -61,12 +61,16 @@ const SignUp = () => {
   const onCompleted = (data: any) => {
     const { userName, password } = getValues();
     const {
-      createAccount: { ok, error },
+      createAccount: { ok },
     } = data;
     if (!ok) {
       return;
     }
 
+    // react router dom 에서 지원하는 useHistory 기능은 단순히 url 이동뿐만 아니라 여러 기능을 지원해준다.
+    // 아래와 같이 데이터를 보내는 역할도 할수 있다.
+    // 아래에 history.push함수의 두번째 인자로 전달되는 객체는 useLocation() 함수로 만들어지는 location 객체에 저장된다
+    // 따라서 받을 화면에서 useLocation() 함수로 state를 관리하는 변수를 작성하고, location?.state?.message 와같이 접근한다.
     history.push(routes.home, {
       message: "Account created. Pleasw log in.",
       userName,

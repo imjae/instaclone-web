@@ -21,8 +21,8 @@ import routes from "../routes";
 
 interface LocationState {
   message: any;
-  userName: any;
-  password: any;
+  userName: string;
+  password: string;
   result: any;
 }
 
@@ -39,7 +39,7 @@ const Notification = styled.div`
 `;
 
 const LOGIN_MUTATION = gql`
-  mutation login($userName: String!, $password: String!) {
+  mutation ($userName: String!, $password: String!) {
     login(userName: $userName, password: $password) {
       ok
       token
@@ -74,7 +74,7 @@ const Login = () => {
       } = data;
 
       if (!ok) {
-        setError("result", {
+        return setError("result", {
           message: error,
         });
       }
@@ -88,8 +88,7 @@ const Login = () => {
     clearErrors("result");
   };
 
-  const onSubmitValid = (data: any) => {
-    //console.log(data);
+  const onSubmitValid = () => {
     if (loading) {
       return;
     }
@@ -102,10 +101,9 @@ const Login = () => {
     });
   };
 
-  const onSubmitInvalid = (data: any) => {
-    //console.log(data, "invalid");
+  const onSubmitInvalid = () => {
+    // console.log(data, "invalid");
   };
-  // console.log(formState);
 
   return (
     <AuthLayout>
@@ -123,7 +121,9 @@ const Login = () => {
                 value: 5,
                 message: "사용자 이름을 5글자 이상으로 작성해 주세요.",
               },
-              // validate: (currentValue: any) => currentValue.includes("potato")
+              // 콜백함수로 전해지는 로직을 통과하지 못하면 위의 register에서 
+              // 정의한 조건을 만족하여도 invaild 함수를 타게 된다.
+              // validate: async (currentValue: any) => currentValue.includes("potato")
             })}
             name="userName"
             type="text"
@@ -144,7 +144,7 @@ const Login = () => {
           />
 
           <FormError message={errors?.password?.message} />
-          <Button type="submit" value="Log in" disabled={!formState.isValid} />
+          <Button type="submit" value="Log in"  disabled={!formState.isValid} />
           <FormError message={errors?.result?.message} />
         </form>
         <Separator />
