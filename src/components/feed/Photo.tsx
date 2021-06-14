@@ -88,15 +88,50 @@ const Photo = ({
   isLiked,
   likeCount,
 }: IPhotoProps): any => {
+  const updateToggleLike = (cache: any, result: any) => {
+    const {
+      data: {
+        toggleLike: { ok },
+      },
+    } = result;
+    if (ok) {
+      const fragmentId = `Photo:${id}`;
+      const fragment = gql`
+        fragment BSName on Photo {
+          isLiked
+          likeCount
+        }
+      `;
+      const result = cache.readFragment({
+        id: fragmentId,
+        fragment,
+      });
+
+      if ("isLiked" in result && "likeCount" in result) {
+        const { isLiked: cacheIsLIked, likeCount: cacheLikeCount } = result;
+        cache.writeFragment({
+          id: fragmentId,
+          fragment,
+          data: {
+            isLiked: !cacheIsLIked,
+            likeCount: cacheIsLIked ? cacheLikeCount - 1 : cacheLikeCount + 1,
+          },
+        });
+      }
+    }
+  };
+
   const [toggleLikeMutation, { loading }] = useMutation(TOGGLE_LIKE_MUTATION, {
     variables: {
       id,
     },
     // 쿼리의 응답을 받게되면 지정한 쿼리를 다시 실행시킨다. feed_query 와같이 비용이 큰 쿼리를 리패치하는것은 안좋은 방법이나
     // 가벼운 쿼리를 적용할때는 간편하게 사용할수 있어 좋을수도 있다.
+    // cache를 제어하는 방식이 더 깔끔하고 가볍고 좋다. 코드가 복잡해지긴 하지만. backend 에 크게 의존하지 않는다.
     // refetchQueries: [{
     //   query: FEED_QUERY
     // }]
+    update: updateToggleLike,
   });
 
   return (
