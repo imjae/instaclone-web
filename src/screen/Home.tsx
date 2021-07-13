@@ -1,6 +1,7 @@
 import { gql, useQuery } from "@apollo/client";
 import Photo from "../components/feed/Photo";
 import PageTitle from "../components/PageTitle";
+import { seeFeed } from "../__generated__/seeFeed";
 
 const FEED_QUERY = gql`
   query seeFeed {
@@ -14,6 +15,16 @@ const FEED_QUERY = gql`
       caption
       likeCount
       commentCount
+      comments {
+        id
+        user {
+          userName
+          avatar
+        }
+        payload
+        isMine
+        createdAt
+      }
       createdAt
       isMine
       isLiked
@@ -22,7 +33,7 @@ const FEED_QUERY = gql`
 `;
 
 const Home = () => {
-  const { data } = useQuery(FEED_QUERY);
+  const { data } = useQuery<seeFeed>(FEED_QUERY);
 
   return (
     <div>

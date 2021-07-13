@@ -18,6 +18,7 @@ import Input from "../components/auth/Input";
 import Separator from "../components/auth/Separator";
 import PageTitle from "../components/PageTitle";
 import routes from "../routes";
+import { login, loginVariables } from "../__generated__/login";
 
 interface LocationState {
   message: any;
@@ -39,7 +40,7 @@ const Notification = styled.div`
 `;
 
 const LOGIN_MUTATION = gql`
-  mutation ($userName: String!, $password: String!) {
+  mutation login($userName: String!, $password: String!) {
     login(userName: $userName, password: $password) {
       ok
       token
@@ -67,6 +68,7 @@ const Login = () => {
     },
   });
 
+  //<login, loginVariables>
   const [login, { loading }] = useMutation(LOGIN_MUTATION, {
     onCompleted: (data) => {
       const {

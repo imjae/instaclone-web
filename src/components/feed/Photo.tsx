@@ -9,7 +9,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart as SolidHeart } from "@fortawesome/free-solid-svg-icons";
 import { FatText } from "../shared";
 import Avatar from "../Avatar";
+import Comments from "./Comments";
 import { gql, useMutation } from "@apollo/client";
+import {
+  toggleLike,
+  toggleLikeVariables,
+} from "../../__generated__/toggleLike";
 
 const TOGGLE_LIKE_MUTATION = gql`
   mutation toggleLike($id: Int!) {
@@ -70,6 +75,17 @@ const Likes = styled(FatText)`
   display: block;
 `;
 
+interface IComments {
+  id: number;
+  user: {
+    userName: string;
+    avatar?: string;
+  };
+  payload: string;
+  isMine: boolean;
+  createdAt: string;
+}
+
 interface IPhotoProps {
   id: number;
   user: {
@@ -79,6 +95,9 @@ interface IPhotoProps {
   file: string;
   isLiked: boolean;
   likeCount: number;
+  caption?: string;
+  commentCount: number;
+  comments: IComments[];
 }
 
 const Photo = ({
@@ -87,7 +106,10 @@ const Photo = ({
   file,
   isLiked,
   likeCount,
-}: IPhotoProps): any => {
+  caption,
+  commentCount,
+  comments,
+}: IPhotoProps) => {
   const updateToggleLike = (cache: any, result: any) => {
     const {
       data: {
@@ -121,7 +143,10 @@ const Photo = ({
     }
   };
 
-  const [toggleLikeMutation, { loading }] = useMutation(TOGGLE_LIKE_MUTATION, {
+  const [toggleLikeMutation, { loading }] = useMutation<
+    toggleLike,
+    toggleLikeVariables
+  >(TOGGLE_LIKE_MUTATION, {
     variables: {
       id,
     },
@@ -162,6 +187,12 @@ const Photo = ({
           </div>
         </PhotoActions>
         <Likes>{likeCount === 1 ? "1 like" : `${likeCount} likes`}</Likes>
+        <Comments 
+          author={userName}
+          caption={caption}
+          comments={comments}
+          commentCount={commentCount}
+        />
       </PhotoData>
     </PhotoContainer>
   );
