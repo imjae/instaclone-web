@@ -110,36 +110,22 @@ const Photo = ({
   commentCount,
   comments,
 }: IPhotoProps) => {
-  const updateToggleLike = (cache: any, result: any) => {
+  const updateToggleLike = (cache: any, mutationResult: any) => {
     const {
       data: {
         toggleLike: { ok },
       },
-    } = result;
+    } = mutationResult;
     if (ok) {
-      const fragmentId = `Photo:${id}`;
-      const fragment = gql`
-        fragment BSName on Photo {
-          isLiked
-          likeCount
-        }
-      `;
-      const result = cache.readFragment({
-        id: fragmentId,
-        fragment,
+      const cacheId = `Photo:${id}`;
+      console.log(cacheId);
+      cache.modify({
+        id: cacheId,
+        fields: {
+          isLiked: (prev: boolean) => (!prev),
+          likeCount: (prev: number) => (isLiked ? --prev : ++prev),
+        },
       });
-
-      if ("isLiked" in result && "likeCount" in result) {
-        const { isLiked: cacheIsLIked, likeCount: cacheLikeCount } = result;
-        cache.writeFragment({
-          id: fragmentId,
-          fragment,
-          data: {
-            isLiked: !cacheIsLIked,
-            likeCount: cacheIsLIked ? cacheLikeCount - 1 : cacheLikeCount + 1,
-          },
-        });
-      }
     }
   };
 
@@ -187,7 +173,7 @@ const Photo = ({
           </div>
         </PhotoActions>
         <Likes>{likeCount === 1 ? "1 like" : `${likeCount} likes`}</Likes>
-        <Comments 
+        <Comments
           author={userName}
           caption={caption}
           comments={comments}
