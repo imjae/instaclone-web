@@ -118,7 +118,6 @@ const Photo = ({
     } = mutationResult;
     if (ok) {
       const cacheId = `Photo:${id}`;
-      console.log(cacheId);
       cache.modify({
         id: cacheId,
         fields: {
