@@ -1,6 +1,8 @@
 import { FatText } from "../shared";
 import Comment from "./Comment";
 import styled from "styled-components";
+import { useForm } from "react-hook-form";
+import { gql, useMutation } from "@apollo/client";
 
 const CommentsContainer = styled.div`
   margin-top: 20px;
@@ -13,7 +15,42 @@ const CommentCount = styled.span`
   font-weight: 600;
 `;
 
-const Comments = ({ author, caption, commentCount, comments }: any) => {
+const CREATE_COMMENT_MUTATION = gql`
+  mutation createComment($photoId: Int!, $payload: String!) {
+    createComment(photoId: $photoId, payload: $payload) {
+      ok
+      error
+    }
+  }
+`;
+
+const Comments = ({
+  photoId,
+  author,
+  caption,
+  commentCount,
+  comments,
+}: any) => {
+  const [createCommentMutation, { loading }] = useMutation(
+    CREATE_COMMENT_MUTATION
+  );
+  const { register, handleSubmit, setValue } = useForm();
+  const onValid = (data: any) => {
+    const { payload } = data;
+    if (loading) {
+      return;
+    }
+
+    createCommentMutation({
+      variables: {
+        photoId,
+        payload,
+      },
+    });
+
+    setValue("payload", "");
+  };
+
   return (
     <CommentsContainer>
       <Comment author={author} payload={caption} />
@@ -27,6 +64,16 @@ const Comments = ({ author, caption, commentCount, comments }: any) => {
           payload={comment.payload}
         />
       ))}
+      <div>
+        <form onSubmit={handleSubmit(onValid)}>
+          <input
+            name="payload"
+            ref={register({ required: true })}
+            type="text"
+            placeholder="Write a comment..."
+          />
+        </form>
+      </div>
     </CommentsContainer>
   );
 };

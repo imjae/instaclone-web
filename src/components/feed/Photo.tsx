@@ -173,6 +173,7 @@ const Photo = ({
         </PhotoActions>
         <Likes>{likeCount === 1 ? "1 like" : `${likeCount} likes`}</Likes>
         <Comments
+          photoId={id}
           author={userName}
           caption={caption}
           comments={comments}
