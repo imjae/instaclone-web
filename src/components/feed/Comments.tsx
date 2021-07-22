@@ -57,10 +57,28 @@ const Comments = ({
         },
       };
 
+      const newCacheComment = cache.writeFragment({
+        data: newComment,
+        fragment: gql`
+          fragment BSName on Comment {
+            id
+            createAt
+            isMine
+            payload
+            user {
+              userName
+              avatar
+            }
+          }
+        `
+      });
+      console.log (newCacheComment);
+
+
       cache.modify({
         id: `Photo:${photoId}`,
         fields: {
-          comments: (prev: any) => [...prev, newComment],
+          comments: (prev: any) => [...prev, newCacheComment],
           commentCount: (commentCount: any) => ++commentCount
         },
       });
