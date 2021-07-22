@@ -1,4 +1,4 @@
-import Comment from "./Comment";
+import Comment, { commentComponentType } from "./Comment";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
 import { gql, useMutation } from "@apollo/client";
@@ -70,16 +70,15 @@ const Comments = ({
               avatar
             }
           }
-        `
+        `,
       });
-      console.log (newCacheComment);
-
+      console.log(newCacheComment);
 
       cache.modify({
         id: `Photo:${photoId}`,
         fields: {
           comments: (prev: any) => [...prev, newCacheComment],
-          commentCount: (commentCount: any) => ++commentCount
+          commentCount: (commentCount: any) => ++commentCount,
         },
       });
     }
@@ -115,8 +114,11 @@ const Comments = ({
       {comments?.map((comment: any) => (
         <Comment
           key={comment.id}
+          id={comment.id}
+          photoId={photoId}
           author={comment.user.userName}
           payload={comment.payload}
+          isMine={comment.isMine}
         />
       ))}
       <div>
