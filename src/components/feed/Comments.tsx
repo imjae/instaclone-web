@@ -72,7 +72,6 @@ const Comments = ({
           }
         `,
       });
-      console.log(newCacheComment);
 
       cache.modify({
         id: `Photo:${photoId}`,

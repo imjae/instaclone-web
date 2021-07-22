@@ -35,7 +35,6 @@ export type commentComponentType = {
 
 const Comment = ({ id, photoId, author, payload, isMine }: commentComponentType) => {
   const updateDeleteComment = (cache: any, result: any) => {
-    console.log(result);
     const {
       data: {
         deleteComment: { ok },
