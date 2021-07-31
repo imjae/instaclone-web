@@ -26,14 +26,20 @@ const DELETE_COMMENT_MUTATION = gql`
 `;
 
 export type commentComponentType = {
-  id?: number,
-  photoId?: number,
-  author: string,
-  payload: string,
-  isMine?: boolean
-}
+  id?: number;
+  photoId?: number;
+  author: string;
+  payload: string;
+  isMine?: boolean;
+};
 
-const Comment = ({ id, photoId, author, payload, isMine }: commentComponentType) => {
+const Comment = ({
+  id,
+  photoId,
+  author,
+  payload,
+  isMine,
+}: commentComponentType) => {
   const updateDeleteComment = (cache: any, result: any) => {
     const {
       data: {
@@ -41,22 +47,22 @@ const Comment = ({ id, photoId, author, payload, isMine }: commentComponentType)
       },
     } = result;
 
-    if(ok) {
+    if (ok) {
       cache.evict({ id: `Comment:${id}` });
       cache.modify({
         id: `Photo:${photoId}`,
         fields: {
-          commentCount: (prev:number) => --prev
-        }
-      })
+          commentCount: (prev: number) => --prev,
+        },
+      });
     }
   };
-  
+
   const [deleteCommentMutation] = useMutation(DELETE_COMMENT_MUTATION, {
     variables: {
       id,
     },
-    update: updateDeleteComment
+    update: updateDeleteComment,
   });
 
   const onDeleteClick = () => {
@@ -65,7 +71,7 @@ const Comment = ({ id, photoId, author, payload, isMine }: commentComponentType)
 
   return (
     <CommentsContainer>
-      <FatText>{author}</FatText>
+      <Link to={`/users/${author}`}>{author}</Link>
       <CommentCaption>
         {payload.split(" ").map((word: string, index: number) =>
           /#[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|]+/.test(word) ? (

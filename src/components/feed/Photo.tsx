@@ -15,6 +15,7 @@ import {
   toggleLike,
   toggleLikeVariables,
 } from "../../__generated__/toggleLike";
+import { Link } from "react-router-dom";
 
 const TOGGLE_LIKE_MUTATION = gql`
   mutation toggleLike($id: Int!) {
@@ -121,7 +122,7 @@ const Photo = ({
       cache.modify({
         id: cacheId,
         fields: {
-          isLiked: (prev: boolean) => (!prev),
+          isLiked: (prev: boolean) => !prev,
           likeCount: (prev: number) => (isLiked ? --prev : ++prev),
         },
       });
@@ -147,8 +148,12 @@ const Photo = ({
   return (
     <PhotoContainer key={id}>
       <PhotoHeader>
-        <Avatar lg url={avatar} />
-        <UserName>{userName}</UserName>
+        <Link to={`/users/${userName}`}>
+          <Avatar lg url={avatar} />
+        </Link>
+        <Link to={`/users/${userName}`}>
+          <UserName>{userName}</UserName>
+        </Link>
       </PhotoHeader>
       <PhotoFile src={file} />
       <PhotoData>
