@@ -56,9 +56,6 @@ export const client = new ApolloClient({
       User: {
         keyFields: (obj) => `User:${obj.userName}`
       },
-      Test: {
-        keyFields: (obj) => `zz`
-      }
     }
   }),
 });
