@@ -55,6 +55,9 @@ export const client = new ApolloClient({
     typePolicies: {
       User: {
         keyFields: (obj) => `User:${obj.userName}`
+      },
+      Test: {
+        keyFields: (obj) => `zz`
       }
     }
   }),
