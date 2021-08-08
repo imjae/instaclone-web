@@ -1,6 +1,6 @@
 import { useReactiveVar } from "@apollo/client";
 import { faInstagram } from "@fortawesome/free-brands-svg-icons";
-import { faCompass, faHome, faUser } from "@fortawesome/free-solid-svg-icons";
+import { faCompass, faHome } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
